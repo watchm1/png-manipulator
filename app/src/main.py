@@ -50,6 +50,8 @@ class PngManipulator:
             pg.draw.line(self.screen, LIGHTGREY, (0, y), (WIDTH, y))
 
     def events(self):
+        self.old_mouse_pos = (0,0)
+        self.new_mouse_pos = (0,0)
         # catching all events here
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -63,21 +65,34 @@ class PngManipulator:
                     self.user.move(dy = -1)
                 if event.key == pg.K_DOWN:
                     self.user.move(dy = 1)
-                if event.key == pg.MOUSEBUTTONDOWN:
-                    mouse_pose = pg.mouse.get_pos()
-                    self.user.move(dx = self.user.x + mouse_pose.x)
                 if event.key == pg.K_SPACE:
                     Wall(self, self.user.x, self.user.y)
-
+            if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
+                    mouse_pose = pg.mouse.get_pos()
+                    convertedPosx = mouse_pose[0] // TILESIZE
+                    convertedPosy = mouse_pose[1] // TILESIZE
+                    self.user.move(dx = convertedPosx - self.user.x , dy = convertedPosy - self.user.y)
+            elif event.type == pg.MOUSEBUTTONDOWN and event.button == 2:
+                self.old_mouse_pos = pg.mouse.get_pos() 
+            elif event.type == pg.MOUSEBUTTONUP and event.button == 2:
+                self.new_mouse_pos = pg.mouse.get_pos()
+                if(self.old_mouse_pos != (0,0)):
+                    Wall.mark( Wall(self, x = self.old_mouse_pos[0] // TILESIZE, y= self.old_mouse_pos[1] // TILESIZE),xmin = self.old_mouse_pos[0] // TILESIZE, ymin = self.old_mouse_pos[1] // TILESIZE, xmax= self.new_mouse_pos[0]// TILESIZE, ymax= self.new_mouse_pos[1]// TILESIZE)
     def show_start_screen(self):
         pass
 
     def show_go_screen(self):
         pass
 
-runTime = PngManipulator()
-runTime.show_start_screen()
-while True:
-    runTime.new()
-    runTime.move()
-    runTime.show_go_screen()
+
+class RunProject():
+    def __init__(self):
+
+        runTime = PngManipulator()
+        runTime.show_start_screen()
+        while True:
+            runTime.new()
+            runTime.move()
+            runTime.show_go_screen()
+
+RunProject()
