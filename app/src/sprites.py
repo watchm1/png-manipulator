@@ -2,7 +2,7 @@ import pygame as pg
 from settings import *
 
 class User(pg.sprite.Sprite):
-    def __init__(self, runTime, x, y):
+    def __init__(self, runTime, x, y, rectHeight=0, rectWidth=0):
         self.groups = runTime.all_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
         self.run_time = runTime
@@ -11,9 +11,9 @@ class User(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y
-    
+        
     def move(self, dx=0, dy=0):
-        self.x += dx
+        self.x += dx*2
         self.y += dy
     
     def update(self):
@@ -33,17 +33,3 @@ class Wall(pg.sprite.Sprite):
         self.y = y
         self.rect.x = x*TILESIZE
         self.rect.y = y*TILESIZE
-    @staticmethod
-    def mark( self, xmin ,ymin, xmax, ymax):
-        self.xmax = xmax
-        self.ymax = ymax
-        self.xmin = xmin
-        self.ymin = ymin
-        self.image = pg.Surface((TILESIZE, TILESIZE))
-        self.image.fill(WHITE)
-        self.rect = self.image.get_rect()
-        print(self.ymax, self.ymin, self.xmax, self.xmin)
-        self.rect.x = (self.xmax-self.xmin) * TILESIZE
-        self.rect.y = (self.ymax-self.ymin) * TILESIZE
-        self.rect.width = (self.xmax) * TILESIZE
-        self.rect.height = (self.ymax) * TILESIZE
