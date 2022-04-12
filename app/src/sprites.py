@@ -13,7 +13,7 @@ class User(pg.sprite.Sprite):
         self.y = y
         
     def move(self, dx=0, dy=0):
-        self.x += dx*2
+        self.x += dx
         self.y += dy
     
     def update(self):
@@ -27,7 +27,7 @@ class Wall(pg.sprite.Sprite):
         pg.sprite.Sprite.__init__(self, self.groups)
         self.run_time = runTime
         self.image = pg.Surface((TILESIZE, TILESIZE))
-        self.image.fill(GRAY) 
+        self.image.fill((192,192,192)) 
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y
