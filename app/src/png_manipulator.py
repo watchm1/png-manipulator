@@ -1,7 +1,8 @@
+import pygame as pg
+import sys
 from settings import *
 from sprites import *
-from Managment.sceneManagment import ScreenManager
-from png_manipulator import PngManipulator
+
 class PngManipulator: 
     def __init__(self):
         pg.init()
@@ -23,7 +24,6 @@ class PngManipulator:
         self.walls = pg.sprite.Group()
         self.screen.blit(self.bg, (0,0))
         self.user = Grid(self, 10, 10)
-
     def update(self):
         #update portion of the game loop
         self.all_sprites.update()
@@ -65,37 +65,20 @@ class PngManipulator:
                 if event.key == pg.K_DOWN:
                     self.user.move(dy = 1)
                 if event.key == pg.K_SPACE:
-                    self.fill = FilledGrid(self, self.user.x, self.user.y)
-                    self.fill.get_filled_grid()
+                    FilledGrid(self, self.user.x, self.user.y)
             if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
                 mouse_pose = pg.mouse.get_pos()
                 convertedPosx = mouse_pose[0] // TILESIZE
                 convertedPosy = mouse_pose[1] // TILESIZE
                 self.user.x = convertedPosx
                 self.user.y = convertedPosy
-                self.fill = FilledGrid(self, convertedPosx, convertedPosy)
-                self.fill.get_filled_grid()
+                FilledGrid(self, convertedPosx, convertedPosy)
             if event.type == pg.MOUSEMOTION:
                 self.old_mouse_pos = self.new_mouse_pos
                 self.new_mouse_pos = pg.mouse.get_pos()
                 if self.new_mouse_pos != self.old_mouse_pos: 
-                    #self.user.move(dx = self.new_mouse_pos[0] - self.old_mouse_pos[0], dy = self.new_mouse_pos[1] - self.old_mouse_pos[1])
-                    pass
+                    pass        
     def show_start_screen(self):
         pass
-
     def show_go_screen(self):
         pass
-
-class RunProject():
-    #main class
-    #main function
-    def __init__(self):
-        runTime = ScreenManager()
-        
-        while True:
-            runTime.new()
-            runTime.is_running()
-            
-
-RunProject()

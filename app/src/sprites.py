@@ -1,8 +1,8 @@
 import pygame as pg
 from settings import *
 
-class User(pg.sprite.Sprite):
-    def __init__(self, runTime, x, y, rectHeight=0, rectWidth=0):
+class Grid(pg.sprite.Sprite):
+    def __init__(self, runTime, x, y, xmax=0, ymax=0,  rectHeight=0, rectWidth=0):
         self.groups = runTime.all_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
         self.run_time = runTime
@@ -21,15 +21,18 @@ class User(pg.sprite.Sprite):
         self.rect.y = self.y * TILESIZE
     
 
-class Wall(pg.sprite.Sprite):
+class FilledGrid(pg.sprite.Sprite):
     def __init__(self, runTime, x, y):
         self.groups = runTime.all_sprites, runTime.walls
         pg.sprite.Sprite.__init__(self, self.groups)
         self.run_time = runTime
-        self.image = pg.Surface((TILESIZE, TILESIZE))
-        self.image.fill((192,192,192)) 
-        self.rect = self.image.get_rect()
         self.x = x
         self.y = y
-        self.rect.x = x*TILESIZE
-        self.rect.y = y*TILESIZE
+        
+    
+    def get_filled_grid(self):
+        self.image = pg.Surface((TILESIZE, TILESIZE))
+        self.image.fill((192,192,192))
+        self.rect = self.image.get_rect()
+        self.rect.x = self.x*TILESIZE
+        self.rect.y = self.y*TILESIZE
