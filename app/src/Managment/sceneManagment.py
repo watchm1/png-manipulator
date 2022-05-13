@@ -15,34 +15,39 @@ class ScreenManager():
         self.clock = pg.time.Clock()
         pg.key.set_repeat(500, 100)
         self.load_data()
-        
-        self.all_sprites = pg.sprite.Group()
+        self.middleGround = pg.sprite.Group()
+        self.background = pg.sprite.Group()
         self.gridManager = gridManagment.GridManager(manager = self, col = HEIGHT // TILESIZE, row = WIDTH // TILESIZE)
     def load_data(self):
         pass
 
     def new(self):
-        self.all_sprites = pg.sprite.Group()
+        self.background = pg.sprite.Group()
+        self.middleGround = pg.sprite.Group()
         self.gridManager = gridManagment.GridManager(self)
 
     def run(self):
         self.playing = True
         while self.playing:
             self.dt = self.clock.tick(FPS) /1000
-            self.events()
+            
             self.update()
             self.draw()
+            self.events()
+
     def update(self):
-        self.all_sprites.update()        
-        
+        self.background.update()
+        self.middleGround.update()
+
     def quit(self):
         pg.quit()
         sys.exit()
     
     def draw(self):
         self.screen.blit(self.bg, (0,0))
+        self.background.draw(self.screen)
         self.gridManager.draw_grid_map()
-        self.all_sprites.draw(self.screen)
+        self.middleGround.draw(self.screen)
         pg.display.flip()
         
     def events(self):
@@ -61,12 +66,14 @@ class ScreenManager():
                 if event.key == pg.K_DOWN:
                     self.gridManager.moving_in_gridSystem(yLen= 1)
                 if event.key == pg.K_SPACE:
-                    self.gridManager.select_tile(x = self.gridManager.grid.x, y = self.gridManager.grid.y)
+                    self.gridManager.selectTile(x = self.gridManager.grid.x, y = self.gridManager.grid.y)
+                if event.key == pg.K_x:
+                    self.gridManager.unselectTile()
             if event.type == pg.MOUSEBUTTONDOWN and event.button ==1:
                 mousePose = pg.mouse.get_pos()
                 convertedX = mousePose[0] // TILESIZE
                 convertedY = mousePose[1] // TILESIZE
-                print(convertedX, convertedY)
-                self.gridManager.select_tile(x = convertedX, y = convertedY)
-
+                self.gridManager.selectTile(x = convertedX, y = convertedY)
+            
+            
 
