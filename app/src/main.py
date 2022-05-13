@@ -1,7 +1,5 @@
-from settings import *
-from sprites import *
+
 from Managment.sceneManagment import ScreenManager
-from png_manipulator import PngManipulator
 
 class RunProject():
     #main class
@@ -12,6 +10,5 @@ class RunProject():
         while True:
             runTime.new()
             runTime.run()
-            
 
 RunProject()
