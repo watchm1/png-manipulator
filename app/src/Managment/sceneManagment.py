@@ -1,4 +1,3 @@
-from lib2to3.pytree import convert
 import pygame as pg
 import sys
 from Managment import gridManagment
@@ -49,8 +48,15 @@ class ScreenManager():
         self.gridManager.draw_grid_map()
         self.middleGround.draw(self.screen)
         pg.display.flip()
-        
+    
+    
+                
     def events(self):
+        self.mousePose = None
+        self.convertedX = None
+        self.convertedY = None
+        self.clicked = False
+        
         self.old_mouse_pos = (0,0)
         self.new_mouse_pos = (0,0)
         for event in pg.event.get():
@@ -70,10 +76,14 @@ class ScreenManager():
                 if event.key == pg.K_x:
                     self.gridManager.unselectTile()
             if event.type == pg.MOUSEBUTTONDOWN and event.button ==1:
+                
                 mousePose = pg.mouse.get_pos()
                 convertedX = mousePose[0] // TILESIZE
                 convertedY = mousePose[1] // TILESIZE
                 self.gridManager.selectTile(x = convertedX, y = convertedY)
             
-            
-
+            if event.type == pg.MOUSEBUTTONDOWN and pg.MOUSEMOTION and event.button ==3:
+                self.mousePose = pg.mouse.get_pos()
+                self.convertedX = self.mousePose[0] // TILESIZE
+                self.convertedY = self.mousePose[1] // TILESIZE
+                self.gridManager.selectTile(x = self.convertedX, y = self.convertedY)

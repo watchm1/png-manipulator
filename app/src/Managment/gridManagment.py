@@ -29,10 +29,11 @@ class GridManager:
     def selectTile(self, x,y):
         if (x,y) not in self.tiles:
             self.tile = grid.FilledGrid(manager = self.manager, x= x,y= y)
-            self.tiles.append((x,y))
             self.tile.image.fill((0,0,0))
             self.tile.image.set_alpha(80)
             print(self.tiles)
+            self.tiles.append((x,y))
+            
     def draw_grid_map(self):
         for x in range (0, settings.WIDTH, settings.TILESIZE):
             pg.draw.line(self.screen, settings.LIGHTGREY, (x, 0), (x, settings.HEIGHT))
