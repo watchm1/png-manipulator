@@ -4,11 +4,11 @@ import sys
 from Managment import gridManagment
 from constants.settings import * 
 class ScreenManager(): 
-    def __init__(self):
+    def __init__(self, image):
         # Screen Managment
         pg.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
-        self.bg = pg.image.load('background2.jpg')
+        self.bg = pg.image.load(image)
         self.bg = pg.transform.scale(self.bg, (WIDTH, HEIGHT))
         self.screen.blit(self.bg, (0,0))
         pg.display.set_caption(TITLE)

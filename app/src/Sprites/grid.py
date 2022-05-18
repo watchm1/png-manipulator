@@ -11,8 +11,7 @@ class Grid(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.manager = manager
         self.x = x
-        self.y = y
-    
+        self.y = y 
     def optimizePositions(self):
         self.rect.x = self.x * settings.TILESIZE
         self.rect.y = self.y * settings.TILESIZE

@@ -21,9 +21,6 @@ class GridManager:
         self.grid.x += xLen
         self.grid.y += yLen
         self.grid.optimizePositions()
-        
-        
-
     def unselectTile(self):
             length = len(self.manager.middleGround.sprites())
             self.manager.middleGround.remove(self.manager.middleGround.sprites()[1:length])
