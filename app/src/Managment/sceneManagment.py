@@ -1,3 +1,5 @@
+from tkinter import Button
+from xmlrpc.client import Boolean
 import pygame as pg
 import sys
 from Managment import gridManagment
@@ -50,11 +52,12 @@ class ScreenManager():
         pg.display.flip()
     
     
-                
+        
+
     def events(self):
-        self.mousePose = None
-        self.convertedX = None
-        self.convertedY = None
+        self.mousePose = (0,0)
+        self.convertedX = 0
+        self.convertedY = 0
         self.clicked = False
         
         self.old_mouse_pos = (0,0)
@@ -62,7 +65,11 @@ class ScreenManager():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.quit()
+            if event.type == pg.KEYUP:
+                if event.key == pg.K_LCTRL:
+                    self.clicked = False
             if event.type == pg.KEYDOWN:
+                
                 if event.key == pg.K_LEFT:
                     self.gridManager.moving_in_gridSystem(xLen= -1 )
                 if event.key == pg.K_RIGHT:
@@ -75,15 +82,20 @@ class ScreenManager():
                     self.gridManager.selectTile(x = self.gridManager.grid.x, y = self.gridManager.grid.y)
                 if event.key == pg.K_x:
                     self.gridManager.unselectTile()
+                if event.key == pg.K_LCTRL:
+                    self.clicked= True
+            
             if event.type == pg.MOUSEBUTTONDOWN and event.button ==1:
-                
                 mousePose = pg.mouse.get_pos()
                 convertedX = mousePose[0] // TILESIZE
                 convertedY = mousePose[1] // TILESIZE
-                self.gridManager.selectTile(x = convertedX, y = convertedY)
-            
-            if event.type == pg.MOUSEBUTTONDOWN and pg.MOUSEMOTION and event.button ==3:
+                self.gridManager.selectTile(x = convertedX, y = convertedY) 
+            if event.type == pg.MOUSEBUTTONDOWN and event.button ==3:
+                self.clicked = True
+            if event.type == pg.MOUSEBUTTONUP and event.button == 3:
+                self.clicked = False
+            if event.type ==  pg.MOUSEMOTION:
                 self.mousePose = pg.mouse.get_pos()
                 self.convertedX = self.mousePose[0] // TILESIZE
                 self.convertedY = self.mousePose[1] // TILESIZE
-                self.gridManager.selectTile(x = self.convertedX, y = self.convertedY)
+                if self.clicked == True : self.gridManager.selectTile(x = self.convertedX, y = self.convertedY)
