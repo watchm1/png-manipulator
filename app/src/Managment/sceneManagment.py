@@ -90,10 +90,6 @@ class ScreenManager():
                 convertedX = mousePose[0] // TILESIZE
                 convertedY = mousePose[1] // TILESIZE
                 self.gridManager.selectTile(x = convertedX, y = convertedY) 
-            if event.type == pg.MOUSEBUTTONDOWN and event.button ==3:
-                self.clicked = True
-            if event.type == pg.MOUSEBUTTONUP and event.button == 3:
-                self.clicked = False
             if event.type ==  pg.MOUSEMOTION:
                 self.mousePose = pg.mouse.get_pos()
                 self.convertedX = self.mousePose[0] // TILESIZE
