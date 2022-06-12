@@ -1,9 +1,9 @@
 from tkinter import Button
-from xmlrpc.client import Boolean
 import pygame as pg
 import sys
 from Managment import gridManagment
-from constants.settings import * 
+from constants.settings import *
+ 
 class ScreenManager(): 
     def __init__(self, image):
         # Screen Managment
@@ -42,7 +42,6 @@ class ScreenManager():
 
     def quit(self):
         pg.quit()
-        sys.exit()
     
     def draw(self):
         self.screen.blit(self.bg, (0,0))

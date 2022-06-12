@@ -2,4 +2,4 @@ opencv Todo
 
     Seçilen resimleri ve resim yüklenmeden önce resim içerisindeki kullanılan renk kodlarını çekip arayüzde göstereceğiz
     Bu renk kodlarına göre de seçilen alanların üzerine bu renk kodları ile birer mask atılacak
-     
+    
