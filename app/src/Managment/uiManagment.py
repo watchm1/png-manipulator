@@ -1,12 +1,10 @@
 import os
 from tkinter import *
 from tkinter import filedialog, colorchooser, messagebox
-import tkinter
 import numpy as np
 from .Helper import Helper
 from .sceneManagment import ScreenManager
 from .ImageProccess.Manipulator import Manipualtor
-
 
 class UIManager:
     def __init__(self):

@@ -67,23 +67,10 @@ class ScreenManager():
             if event.type == pg.KEYUP:
                 if event.key == pg.K_LCTRL:
                     self.clicked = False
-            if event.type == pg.KEYDOWN:
-                
-                if event.key == pg.K_LEFT:
-                    self.gridManager.moving_in_gridSystem(xLen= -1 )
-                if event.key == pg.K_RIGHT:
-                    self.gridManager.moving_in_gridSystem(xLen= 1 )
-                if event.key == pg.K_UP:
-                    self.gridManager.moving_in_gridSystem(yLen= -1)
-                if event.key == pg.K_DOWN:
-                    self.gridManager.moving_in_gridSystem(yLen= 1)
-                if event.key == pg.K_SPACE:
-                    self.gridManager.selectTile(x = self.gridManager.grid.x, y = self.gridManager.grid.y)
                 if event.key == pg.K_x:
                     self.gridManager.unselectTile()
                 if event.key == pg.K_LCTRL:
                     self.clicked= True
-            
             if event.type == pg.MOUSEBUTTONDOWN and event.button ==1:
                 mousePose = pg.mouse.get_pos()
                 convertedX = mousePose[0] // TILESIZE
