@@ -15,7 +15,7 @@ class Manipualtor:
         try:
             for i in self.locations:
                 self.img[i[1]*self.settings:i[1]*self.settings+self.settings, i[0]*self.settings:i[0]*self.settings+self.settings,] = (color_code[2], color_code[1], color_code[0])
-            cv.imshow("title",self.img)
+            cv.imshow("Edited Image",self.img)
             return True
         except:
             print("error")

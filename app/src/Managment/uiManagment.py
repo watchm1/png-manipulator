@@ -1,5 +1,6 @@
 import os
 from tkinter import *
+import customtkinter as ct
 from tkinter import filedialog, colorchooser, messagebox
 from .Helper import Helper
 from .sceneManagment import ScreenManager
@@ -7,29 +8,37 @@ from .ImageProccess.Manipulator import Manipualtor
 
 class UIManager:
     def __init__(self):
+        
+        ct.set_appearance_mode("Dark")  # Modes: "System" (standard), "Dark", "Light"
+        ct.set_default_color_theme("dark-blue")
         self.color_code = None
         self.gui = Tk()
         self.gui.title("PNG MANIPULATOR")
-        self.gui.geometry("500x500")
-        self.label = Label(self.gui, text="IMPORT YOUR PNG FILE")
+        self.gui.geometry("400x400")
+        self.gui.configure(background="Gray")
+        self.canvas = ct.CTkCanvas(self.gui)
+        self.label = ct.CTkLabel(self.gui, text="IMPORT YOUR PNG FILE", fg_color="blue", height=30)
         self.label.pack()
+        self.label.place(x = 120, y = 50)
        ##############
-        self.colorChooseButton = Button(
+        
+        self.colorChooseButton = ct.CTkButton(
             text= "Choose Color",
             command= self.choose_color,
-            height= 5,
-            width= 15
+            height= 30,
+            width= 30,
+            
         )
-        self.button = Button(
+        self.button = ct.CTkButton(
             text = "Upload", 
             command = self.uploadAction,
-            height=5,
-            width=15)
+            height=30,
+            width=30)
 
         self.colorChooseButton.pack()
-        self.colorChooseButton.place(x=185,y=180)
+        self.colorChooseButton.place(x=150,y=180)
         self.button.pack()
-        self.button.place(x=185,y=100)
+        self.button.place(x=165,y=140)
     
     def choose_color(self):
         self.color_code = colorchooser.askcolor(title ="Choose color")

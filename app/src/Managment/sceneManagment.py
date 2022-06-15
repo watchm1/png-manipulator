@@ -1,6 +1,4 @@
-from tkinter import Button
 import pygame as pg
-import sys
 from Managment import gridManagment
 from constants.settings import *
  
