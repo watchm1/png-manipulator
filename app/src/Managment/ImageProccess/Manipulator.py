@@ -20,8 +20,6 @@ class Manipualtor:
         except:
             print("error")
             return False
-        
-        
     def execute(self, color_code):
         if(self.manipulate(color_code) is True):
             status = cv.imwrite("edited.jpg", self.img)
