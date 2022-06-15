@@ -1,7 +1,6 @@
 import os
 from tkinter import *
 from tkinter import filedialog, colorchooser, messagebox
-import numpy as np
 from .Helper import Helper
 from .sceneManagment import ScreenManager
 from .ImageProccess.Manipulator import Manipualtor
@@ -31,24 +30,22 @@ class UIManager:
         self.colorChooseButton.place(x=185,y=180)
         self.button.pack()
         self.button.place(x=185,y=100)
-
-
+    
     def choose_color(self):
         self.color_code = colorchooser.askcolor(title ="Choose color")
-        return self.color_code
+        self.color = self.color_code
+    
     def start(self):
         self.gui.mainloop()
-
     def uploadAction(self,event = None):
         if(self.color_code != None and self.color_code != (None,None)):
             self.filename = filedialog.askopenfilename()
             self.editedFileName = os.path.basename(self.filename)
             if(Helper.Helper.StringEmptyChecker(self.editedFileName)):
-                self.screenManager = ScreenManager(self.editedFileName)
+                self.screenManager = ScreenManager(self.editedFileName, self.color[0])
                 self.runEditMode()
         else:
             messagebox.showerror("ERROR", "Please choose your color first")
-        
     def runEditMode(self):
         while True:
             self.screenManager.new()

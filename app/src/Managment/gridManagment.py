@@ -1,7 +1,7 @@
 from Sprites import grid
 from constants import settings
 import pygame as pg
-
+from .ImageProccess.Manipulator import Manipualtor
 
 class GridManager:
     def __init__(self, manager, col=0, row=0):
@@ -11,20 +11,19 @@ class GridManager:
         self.tiles = []
         self.screen = manager.screen
         self.manager = manager
+        self.imageManipulator = Manipualtor()
     def unselectTile(self):
         if self.tiles != []:
             length = len(self.manager.middleGround.sprites())
             self.manager.middleGround.remove(
                 self.manager.middleGround.sprites()[0:length])
             self.tiles.clear()
-            print(self.tiles)
 
     def selectTile(self, x, y):
         if (x, y) not in self.tiles:
             self.tile = grid.FilledGrid(manager=self.manager, x=x, y=y)
             self.tile.image.fill((255, 255, 255))
             self.tile.image.set_alpha(80)
-            print(self.tiles)
             self.tiles.append((x, y))
 
     def draw_grid_map(self):

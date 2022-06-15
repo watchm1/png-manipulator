@@ -5,10 +5,12 @@ from Managment import gridManagment
 from constants.settings import *
  
 class ScreenManager(): 
-    def __init__(self, image):
+    def __init__(self, image, choosen_color):
         # Screen Managment
         pg.init()
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
+        self.img = image
+        self.color_code = choosen_color
         self.bg = pg.image.load(image)
         self.bg = pg.transform.scale(self.bg, (WIDTH, HEIGHT))
         self.screen.blit(self.bg, (0,0))
@@ -67,6 +69,12 @@ class ScreenManager():
             if event.type == pg.KEYUP:
                 if event.key == pg.K_LCTRL:
                     self.clicked = False
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_RCTRL:
+                    if(self.gridManager.tiles != None or self.gridManager.tiles != []):
+                        self.gridManager.imageManipulator.getImage(self.img, self.gridManager.tiles, settings= TILESIZE)
+                        self.gridManager.imageManipulator.execute(self.color_code)
+                        pg.quit()
                 if event.key == pg.K_x:
                     self.gridManager.unselectTile()
                 if event.key == pg.K_LCTRL:
@@ -80,4 +88,6 @@ class ScreenManager():
                 self.mousePose = pg.mouse.get_pos()
                 self.convertedX = self.mousePose[0] // TILESIZE
                 self.convertedY = self.mousePose[1] // TILESIZE
-                if self.clicked == True : self.gridManager.selectTile(x = self.convertedX, y = self.convertedY)
+                if self.clicked == True : 
+                    self.gridManager.selectTile(x = self.convertedX, y = self.convertedY)
+                    
